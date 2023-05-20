@@ -11,7 +11,7 @@ describe('Trabalhando com "Cy.Request"', () =>{
                 url: `ws/${raw.cep}/json`
             })
             .then((response)=>{
-                expect(response.status).to.eq(2010)
+                expect(response.status).to.eq(200)
                 expect(raw).to.deep.equal(response.body)
                 //expect(response.body).to.have.keys(Object.keys(raw))
             })            
