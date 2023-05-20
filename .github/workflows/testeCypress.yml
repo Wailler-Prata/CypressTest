@@ -1,0 +1,31 @@
+name: Create Cypress report
+on:
+  push:
+
+jobs:
+  cypress-teste:
+  name: Run Cypress test
+    runs-on: ubuntu-22.04
+    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
+
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Run Cypress tests
+      run: npm run reset:reports
+      run: npm run cy:run
+      continue-on-error: true
+
+    - name: Merge test results into one
+      run: npm run mergeReports:json
+
+    - name: Generate HTML report
+      run: npm run generateMochawesome-report:html
+
+    - name: Deploy report page
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./reports/html
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'

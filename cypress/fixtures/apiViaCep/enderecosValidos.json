@@ -1,0 +1,50 @@
+[
+    {
+        "cep": "30530-500",
+        "logradouro": "Rua Vesta",
+        "complemento": "",
+        "bairro": "Alto dos Pinheiros",
+        "localidade": "Belo Horizonte",
+        "uf": "MG",
+        "ibge": "3106200",
+        "gia": "",
+        "ddd": "31",
+        "siafi": "4123"
+    },
+    {
+        "cep": "01001-000",
+        "logradouro": "Praça da Sé",
+        "complemento": "lado ímpar",
+        "bairro": "Sé",
+        "localidade": "São Paulo",
+        "uf": "SP",
+        "ibge": "3550308",
+        "gia": "1004",
+        "ddd": "11",
+        "siafi": "7107"
+      },
+      {
+        "cep": "30590-500",
+        "logradouro": "Rua Emília Brochado",
+        "complemento": "",
+        "bairro": "Betânia",
+        "localidade": "Belo Horizonte",
+        "uf": "MG",
+        "ibge": "3106200",
+        "gia": "",
+        "ddd": "31",
+        "siafi": "4123"
+      },
+      {
+        "cep": "30520-520",
+        "logradouro": "Rua Professor Eloy de Mattos",
+        "complemento": "",
+        "bairro": "Camargos",
+        "localidade": "Belo Horizonte",
+        "uf": "MG",
+        "ibge": "3106200",
+        "gia": "",
+        "ddd": "31",
+        "siafi": "4123"
+      }
+]
