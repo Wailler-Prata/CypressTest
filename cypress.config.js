@@ -15,5 +15,6 @@ module.exports = defineConfig({
       require('cypress-mochawesome-reporter/plugin')(on);
     },
     baseUrl: 'https://viacep.com.br',
+    video:false
   },
 });

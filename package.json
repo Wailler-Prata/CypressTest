@@ -8,9 +8,6 @@
   "scripts": {
     "cy:open": "npx cypress open",
     "cy:run": "npx cypress run --headless",
-    "cy:run:mochawesome:flag": "npx cypress run --headless --reporter mochawesome",
-    "mergeReports:json": "mochawesome-merge cypress/report/mochawesome-report/*.json > cypress/report/output.json",
-    "generateMochawesome-report:html": "marge cypress/report/output.json --reportDir ./ --inline",
     "reset:reports": "node deleteReports.js"
   }
 }
