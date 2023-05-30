@@ -29,3 +29,11 @@ Cypress.on('uncaught:exception', (err, runnable) => {
     // failing the test
     return true
   })
+
+Cypress.Commands.add('getCep', (cep)=>{
+  return cy.request({
+    method: 'GET',
+    url: `ws/${cep}/json`,
+    failOnStatusCode:false
+  })
+})
