@@ -1,3 +1,8 @@
+# Cypress aplication
+cypress\reports
+cypress\screenshots
+cypress.env.json
+
 # Logs
 logs
 *.log

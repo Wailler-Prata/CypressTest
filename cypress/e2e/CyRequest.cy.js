@@ -1,4 +1,4 @@
-describe('Trabalhando com "Cy.Request"', () =>{
+context('Trabalhando com "Cy.Request"', () =>{
 
     const generateRandomNumberInAInterval = (firstNumber, LastNumber)=>{
         return Math.floor(Math.random() * ((LastNumber - 1) - firstNumber + 1) ) + firstNumber // Gera um numero de 0 a ultima posição do array de endereços
@@ -9,7 +9,7 @@ describe('Trabalhando com "Cy.Request"', () =>{
         .then((data)=>{
 
             const raw = data[generateRandomNumberInAInterval(0, data.length)]
-            cy.getCep(raw.cep)
+            cy.getEnderecoByCepFromCepApi(raw.cep)
             .then((response)=>{
                 expect(response.status).to.eq(200)
                 expect(raw).to.deep.equal(response.body)
@@ -21,7 +21,7 @@ describe('Trabalhando com "Cy.Request"', () =>{
     })
 
     it('Requisitando um endereço por um CEP inexistente', ()=>{
-        cy.getCep('00000000')
+        cy.getEnderecoByCepFromCepApi('00000000')
         .then((response) =>{
             expect(response.status).to.eq(200)
             expect(response.body.erro).to.eq(true)
@@ -33,7 +33,7 @@ describe('Trabalhando com "Cy.Request"', () =>{
     })
 
     it('Requisitando um endereço por um CEP inválido (Alfanumérico)', ()=>{
-        cy.getCep('95010A10')
+        cy.getEnderecoByCepFromCepApi('95010A10')
         .then((response) =>{
             expect(response.status).to.eq(400)
             
