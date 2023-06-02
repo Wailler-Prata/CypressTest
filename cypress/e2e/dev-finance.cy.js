@@ -27,42 +27,42 @@ context('Dev Finances', () => {
     it('Cadastrar uma entrada positiva', () => {        
         
         cy.registerEntranceInDevFinance(positiveEntrance.description, positiveEntrance.amount, positiveEntrance.date)
-
         cy.getVisibeElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.eq', 1)
-        cy.getVisibeElement('#data-table .description').invoke('text').then((text)=>{
+
+        cy.getVisibeElement('#data-table > tbody > tr .description').invoke('text').then((text)=>{
             expect(text).to.eq(positiveEntrance.description)
         })
 
-        cy.getVisibeElement('#data-table .income').invoke('text').then((text) => {           
+        cy.getVisibeElement('#data-table > tbody > tr .income').invoke('text').then((text) => {           
             cy.wrap( functionsDevfinance.convertStringNumberTo(text).float(), {timeout: 0}).should('eq', positiveEntrance.amount)
         })
 
-        cy.getVisibeElement('#data-table .date').invoke('text').then((text)=>{
+        cy.getVisibeElement('#data-table > tbody > tr .date').invoke('text').then((text)=>{
             cy.wrap(functionsDevfinance.convetTextDateToRightFormatForBrowserForBrowser(text), {timeout: 0}).should('eq', positiveEntrance.date)
         })
 
-        const cardValuesNegativeEntrance = cardValues.map(item =>{
+        const cardValuesPositiveEntrance = cardValues.map(item =>{
             return  item.cssSelector === '#expenseDisplay'? { ...item, value: 0.00} : { ...item, value: positiveEntrance.amount}
             }
         )
-        cy.verifyValueCardsOfSumValues(cardValuesNegativeEntrance)
+        cy.verifyValueCardsOfSumValues(cardValuesPositiveEntrance)
     })    
 
         
     it('Cadastrar uma entrada negativa', () => {
         
         cy.registerEntranceInDevFinance(negativeEntrance.description, negativeEntrance.amount, negativeEntrance.date)
-
         cy.getVisibeElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.eq', 1)
-        cy.getVisibeElement('#data-table .description').invoke('text').then((text)=>{
+
+        cy.getVisibeElement('#data-table > tbody > tr .description').invoke('text').then((text)=>{
             expect(text).to.eq(negativeEntrance.description)
         })
 
-        cy.getVisibeElement('#data-table .expense').invoke('text').then((text) => {           
+        cy.getVisibeElement('#data-table > tbody > tr .expense').invoke('text').then((text) => {           
             cy.wrap(functionsDevfinance.convertStringNumberTo(text).float(), {timeout: 0} ).should('eq', negativeEntrance.amount)
         })
 
-        cy.getVisibeElement('#data-table .date').invoke('text').then((text)=>{
+        cy.getVisibeElement('#data-table > tbody > tr .date').invoke('text').then((text)=>{
             cy.wrap(functionsDevfinance.convetTextDateToRightFormatForBrowserForBrowser(text)).should('eq', negativeEntrance.date)
         })
 
@@ -77,8 +77,8 @@ context('Dev Finances', () => {
        
         cy.registerEntranceInDevFinance(negativeEntrance.description, negativeEntrance.amount, negativeEntrance.date)
         cy.registerEntranceInDevFinance(positiveEntrance.description, positiveEntrance.amount, positiveEntrance.date)
-
         cy.getVisibeElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.eq', 2)
+
         cy.verifyValueCardsOfSumValues(cardValues)
     })
 
@@ -123,8 +123,8 @@ context('Dev Finances', () => {
         it('Remoção de entradas', () => {
             cy.getVisibeElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.eq', 2)
 
-            cy.getVisibeElement('#data-table td img').first().click()
-            cy.getVisibeElement('#data-table td img').click()
+            cy.getVisibeElement('#data-table > tbody > tr > td> img ').first().click()
+            cy.getVisibeElement('#data-table > tbody > tr > td> img ').click()
 
             cy.get('#data-table > tbody > tr').should('not.exist')
             const cardValuesEqualToZero = cardValues.map(item =>{return { ...item, value: 0.00}})
