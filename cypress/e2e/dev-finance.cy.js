@@ -28,6 +28,7 @@ context('Dev Finances', () => {
         
         cy.registerEntranceInDevFinance(positiveEntrance.description, positiveEntrance.amount, positiveEntrance.date)
 
+        cy.getVisibeElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.eq', 1)
         cy.getVisibeElement('#data-table .description').invoke('text').then((text)=>{
             expect(text).to.eq(positiveEntrance.description)
         })
@@ -37,11 +38,11 @@ context('Dev Finances', () => {
         })
 
         cy.getVisibeElement('#data-table .date').invoke('text').then((text)=>{
-            cy.wrap(functionsDevfinance.convetTextDateToRightFormat(text), {timeout: 0}).should('eq', positiveEntrance.date)
+            cy.wrap(functionsDevfinance.convetTextDateToRightFormatForBrowserForBrowser(text), {timeout: 0}).should('eq', positiveEntrance.date)
         })
 
         const cardValuesNegativeEntrance = cardValues.map(item =>{
-            return  item.cssSelector == '#expenseDisplay'? { cssSelector: item. cssSelector, value: 0.00} : { cssSelector: item.cssSelector, value: positiveEntrance.amount}
+            return  item.cssSelector === '#expenseDisplay'? { ...item, value: 0.00} : { ...item, value: positiveEntrance.amount}
             }
         )
         cy.verifyValueCardsOfSumValues(cardValuesNegativeEntrance)
@@ -51,7 +52,8 @@ context('Dev Finances', () => {
     it('Cadastrar uma entrada negativa', () => {
         
         cy.registerEntranceInDevFinance(negativeEntrance.description, negativeEntrance.amount, negativeEntrance.date)
-        
+
+        cy.getVisibeElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.eq', 1)
         cy.getVisibeElement('#data-table .description').invoke('text').then((text)=>{
             expect(text).to.eq(negativeEntrance.description)
         })
@@ -61,21 +63,22 @@ context('Dev Finances', () => {
         })
 
         cy.getVisibeElement('#data-table .date').invoke('text').then((text)=>{
-            cy.wrap(functionsDevfinance.convetTextDateToRightFormat(text)).should('eq', negativeEntrance.date)
+            cy.wrap(functionsDevfinance.convetTextDateToRightFormatForBrowserForBrowser(text)).should('eq', negativeEntrance.date)
         })
 
         const cardValuesNegativeEntrance = cardValues.map(item =>{
-            return  item.cssSelector == '#incomeDisplay'? { cssSelector: item. cssSelector, value: 0.00} : { cssSelector: item.cssSelector, value: negativeEntrance.amount}
+            return  item.cssSelector === '#incomeDisplay'? { ...item, value: 0.00} : { ...item, value: negativeEntrance.amount}
             }
         )
         cy.verifyValueCardsOfSumValues(cardValuesNegativeEntrance)
     })
 
-    it('Verificar valores dos cards entradas, saidas e totais após inserir entradas', () => {
+    it('Validação de valores dos cards (entradas, saidas e totais) após inserir multiplas entradas', () => {
        
         cy.registerEntranceInDevFinance(negativeEntrance.description, negativeEntrance.amount, negativeEntrance.date)
         cy.registerEntranceInDevFinance(positiveEntrance.description, positiveEntrance.amount, positiveEntrance.date)
 
+        cy.getVisibeElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.eq', 2)
         cy.verifyValueCardsOfSumValues(cardValues)
     })
 
@@ -84,13 +87,13 @@ context('Dev Finances', () => {
         cy.get('body')
             .invoke('css', 'background-color')
             .then((backgroundColor) => {
-              expect(functionsDevfinance.rgbToHex(backgroundColor)).to.eq('#f0f2f5')
+              expect(functionsDevfinance.colorRgbToHex(backgroundColor)).to.eq('#f0f2f5')
         })
 
         cy.get('header')
             .invoke('css', 'background-color')
             .then((backgroundColor) => {
-              expect(functionsDevfinance.rgbToHex(backgroundColor)).to.eq('#2d4a22')
+              expect(functionsDevfinance.colorRgbToHex(backgroundColor)).to.eq('#2d4a22')
         })
 
     });
@@ -101,27 +104,30 @@ context('Dev Finances', () => {
         cy.get('body')
             .invoke('css', 'background-color')
             .then((backgroundColor) => {
-              expect(functionsDevfinance.rgbToHex(backgroundColor)).to.eq('#202024')
+              expect(functionsDevfinance.colorRgbToHex(backgroundColor)).to.eq('#202024')
         })
 
         cy.get('header')
             .invoke('css', 'background-color')
             .then((backgroundColor) => {
-              expect(functionsDevfinance.rgbToHex(backgroundColor)).to.eq('#121214')
+              expect(functionsDevfinance.colorRgbToHex(backgroundColor)).to.eq('#121214')
         })        
     })
 
-    describe('Simulação de entradas já computadas para remoção', () => {
+    describe('Carregamento das informações em cahe para execução do teste de remoção de entradas', () => {
         
         before(() => {   
             functionsDevfinance.setLocalStorange('dev.finances:transactions', [{"description": negativeEntrance.description,"amount":negativeEntrance.amount,"date":negativeEntrance.date},{"description":positiveEntrance.description,"amount":positiveEntrance.amount,"date":positiveEntrance.date}])
         })
 
-        it('Remover entradas', () => {
+        it('Remoção de entradas', () => {
+            cy.getVisibeElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.eq', 2)
+
             cy.getVisibeElement('#data-table td img').first().click()
             cy.getVisibeElement('#data-table td img').click()
 
-            const cardValuesEqualToZero = cardValues.map(item =>{return { cssSelector: item. cssSelector, value: 0.00}})
+            cy.get('#data-table > tbody > tr').should('not.exist')
+            const cardValuesEqualToZero = cardValues.map(item =>{return { ...item, value: 0.00}})
             cy.verifyValueCardsOfSumValues(cardValuesEqualToZero)
         })     
     });
