@@ -23,5 +23,24 @@ export const functionsDevfinance = {
 
     colorRgbToHex(rgb){
         return `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`
+    },
+
+    CssSelectiorAndValuesTotalCardsByEntrances(arrayEntrances){
+        const valueOfTotalCards = 
+        [
+           {   
+                cssSelector: "#totalDisplay",
+                value: arrayEntrances.reduce((acc, entrance) => acc + entrance.amount, 0) 
+            },
+            {   
+                cssSelector: "#incomeDisplay",
+                value: arrayEntrances.map(entrance => entrance.amount >= 0.00 ? entrance.amount : 0).reduce((acc, value) => acc + value, 0)
+            },
+            {   
+                cssSelector: "#expenseDisplay",
+                value: arrayEntrances.map(entrance => entrance.amount < 0.00 ? entrance.amount : 0).reduce((acc, value) => acc + value, 0)
+            }    
+        ]
+        return valueOfTotalCards
     }
 }
