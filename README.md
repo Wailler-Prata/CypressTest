@@ -14,8 +14,9 @@ Contudo, ainda estamos gerando um relatório da execução de testes, este é pu
 
 Dentro do caminho ```cypress\e2e``` temos individualmente os arquivos de testes de cada uma das aplicações:
 
-*```CyRequest.cy.js```, para os testes nos endpoints https://viacep.com.br.
-*```dev-finance.cy.js```, para os testes no site https://artursantiago.github.io/dev.finance/balance.
+* ```CyRequest.cy.js```, para os testes nos endpoints https://viacep.com.br.
+
+* ```dev-finance.cy.js```, para os testes no site https://artursantiago.github.io/dev.finance/balance.
 
 O ```Cypress``` possui o padrão de arquitetura ```App-Actions```, que aliás, é o recomendado pelo próprio. Portanto, no diretório ```cypress\support``` foi criado uma pasta para cada domínio de teste, que por sua vez, contém o(s) arquivo(s) de comandos ```App-Actions``` de cada uma dos domínios a serem testados.
 
