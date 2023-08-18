@@ -1,4 +1,4 @@
-import {functionsDevfinance} from '../../funcoes/devfinance'
+import {functionsDevFinance} from '../../funcoes/devfinance'
 
 context('Dev Finances', () => {
 
@@ -15,7 +15,7 @@ context('Dev Finances', () => {
 
             cy.registerEntranceInDevFinance(positiveEntrance.description, positiveEntrance.amount, positiveEntrance.date)
             
-            cy.getVisibeElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.eq', 1)
+            cy.getVisibleElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.eq', 1)
             cy.verifyEntranceInDataTable( {description: positiveEntrance.description, amount: positiveEntrance.amount, date: positiveEntrance.date})
             cy.verifyCardsValueOfSumValues([positiveEntrance])
         })
@@ -31,13 +31,13 @@ context('Dev Finances', () => {
         
             cy.registerEntranceInDevFinance(negativeEntrance.description, negativeEntrance.amount, negativeEntrance.date)
     
-            cy.getVisibeElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.eq', 1)
+            cy.getVisibleElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.eq', 1)
             cy.verifyEntranceInDataTable( {description: negativeEntrance.description, amount: negativeEntrance.amount, date: negativeEntrance.date})
             cy.verifyCardsValueOfSumValues([negativeEntrance])
         })
     })
 
-    it('Validação de valores dos cards (entradas, saidas e totais) após inserir multiplas entradas', () => {
+    it('Validação de valores dos cards (entradas, saídas e totais) após inserir múltiplas entradas', () => {
 
         cy.fixture('devFinance/entradas.json')
         .then((entrances)=>{
@@ -47,7 +47,7 @@ context('Dev Finances', () => {
 
             cy.registerEntranceInDevFinance(negativeEntrance.description, negativeEntrance.amount, negativeEntrance.date)
             cy.registerEntranceInDevFinance(positiveEntrance.description, positiveEntrance.amount, positiveEntrance.date)
-            cy.getVisibeElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.eq', 2)
+            cy.getVisibleElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.eq', 2)
 
             cy.verifyCardsValueOfSumValues([negativeEntrance, positiveEntrance])
         })         
@@ -58,39 +58,39 @@ context('Dev Finances', () => {
         cy.get('body')
             .invoke('css', 'background-color')
             .then((backgroundColor) => {
-              expect(functionsDevfinance.colorRgbToHex(backgroundColor)).to.eq('#f0f2f5')
+              expect(functionsDevFinance.colorRgbToHex(backgroundColor)).to.eq('#f0f2f5')
         })
 
         cy.get('header')
             .invoke('css', 'background-color')
             .then((backgroundColor) => {
-              expect(functionsDevfinance.colorRgbToHex(backgroundColor)).to.eq('#2d4a22')
+              expect(functionsDevFinance.colorRgbToHex(backgroundColor)).to.eq('#2d4a22')
         })
 
     });
 
     it('Verificar tema dark', () => {
-        cy.getVisibeElement('.theme-switch .slider').click()
+        cy.getVisibleElement('.theme-switch .slider').click()
         
         cy.get('body')
             .invoke('css', 'background-color')
             .then((backgroundColor) => {
-              expect(functionsDevfinance.colorRgbToHex(backgroundColor)).to.eq('#202024')
+              expect(functionsDevFinance.colorRgbToHex(backgroundColor)).to.eq('#202024')
         })
 
         cy.get('header')
             .invoke('css', 'background-color')
             .then((backgroundColor) => {
-              expect(functionsDevfinance.colorRgbToHex(backgroundColor)).to.eq('#121214')
+              expect(functionsDevFinance.colorRgbToHex(backgroundColor)).to.eq('#121214')
         })        
     })
 
-    describe('Carregamento das informações em cahe para execução do teste de remoção de entradas', () => {
+    describe('Carregamento das informações em cache para execução do teste de remoção de entradas', () => {
         
         before(() => {
             cy.fixture('devFinance/entradas.json')
             .then((entrances)=>{
-                functionsDevfinance.setLocalStorange('dev.finances:transactions', entrances)
+                functionsDevFinance.setLocalStorage('dev.finances:transactions', entrances)
             })            
         })
 
@@ -98,9 +98,9 @@ context('Dev Finances', () => {
             cy.fixture('devFinance/entradas.json')
             .then((entrances)=>{
 
-                cy.getVisibeElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.gt', 1)
+                cy.getVisibleElement('#data-table > tbody > tr').its('length', {timeout:0}).should('to.gt', 1)
                 cy.wrap(entrances).each(()=>{
-                    cy.getVisibeElement('#data-table > tbody > tr > td> img ').first().click()
+                    cy.getVisibleElement('#data-table > tbody > tr > td> img ').first().click()
                 })
     
                 cy.get('#data-table > tbody > tr').should('not.exist')

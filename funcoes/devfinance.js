@@ -1,19 +1,19 @@
-export const functionsDevfinance = {
-    setLocalStorange(key, value){
+export const functionsDevFinance = {
+    setLocalStorage(key, value){
         return  window.localStorage.setItem(key, JSON.stringify(value)) 
     },
 
     convertStringNumberTo(number){
-        const resultCaracters = number.replace(',', '.').match(/-|[0-9|.|,]/g).join('') 
+        const resultCharacters = number.replace(',', '.').match(/-|[0-9|.|,]/g).join('') 
         return {
-            float(){ return Number.parseFloat(resultCaracters) },
-            integer(){ return Number.parseInt(resultCaracters) }
+            float(){ return Number.parseFloat(resultCharacters) },
+            integer(){ return Number.parseInt(resultCharacters) }
         }                
     },
 
-    convetTextDateToRightFormatForBrowserForBrowser(text){
-        const dateSplited = text.split("/")
-        return dateSplited[2] + '-' + dateSplited[1] + '-' + dateSplited[0]
+    convertTextDateToRightFormatForBrowserForBrowser(text){
+        const dateSplitted = text.split("/")
+        return dateSplitted[2] + '-' + dateSplitted[1] + '-' + dateSplitted[0]
     },
 
     numberRounder(number){
@@ -25,7 +25,7 @@ export const functionsDevfinance = {
         return `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`
     },
 
-    CssSelectiorAndValuesTotalCardsByEntrances(arrayEntrances){
+    CssSelectorAndValuesTotalCardsByEntrances(arrayEntrances){
         const valueOfTotalCards = 
         [
            {   
