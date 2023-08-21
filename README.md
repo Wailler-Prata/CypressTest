@@ -1,7 +1,8 @@
  # Testes E2E e API com Cypress
 
- Este é um exemplo de como o ```Cypress``` pode nos ajudar a executar tanto testes de interfaces quanto testes de API's.
+Este é um exemplo de como o ```Cypress``` pode nos ajudar a executar tanto testes de interfaces quanto testes de API's.
 
+        Relatório da execução dos testes disponível em https://wailler-prata.github.io/CypressTest/
 
 ### Construção do projeto
 Este projeto foi construído em ```Node.js``` usando apenas ```Cypress``` para a elaboração e execução dos testes. 
