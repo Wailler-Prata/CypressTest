@@ -11,7 +11,7 @@ context('Trabalhando com "Cy.Request"', () =>{
             const raw = data[generateRandomNumberInAInterval(0, data.length)]
             cy.getEnderecoByCepFromCepApi(raw.cep)
             .then((response)=>{
-                expect(response.status).to.eq(200)
+                expect(response.status).to.eq(201)
                 expect(raw).to.deep.equal(response.body)
 
                 cy.addTestContext({title: "Response esperado", value: raw})
